@@ -2,7 +2,7 @@ let order = []
 let clickOrder = []
 let score = 0
 let counter = 10
-let time
+let time = 20
 
 const blue = document.querySelector('.blue')
 const red = document.querySelector('.red')
@@ -83,7 +83,7 @@ function countdown() {
       seg = '0' + seg
     }
     printTime = '00:' + seg;
-    document.querySelector(".time").innerHTML = printTime
+    document.querySelector(".count-down").innerHTML = printTime
     setTimeout('countdown()', 1000)
     time--
   }
@@ -110,7 +110,7 @@ function gameOver() {
 
 //funcao de inicio do jogo
 function playGame() {
-  alert('Bem vindo ao Genius! iniciando novo jogo')
+  alert('Iniciando novo jogo')
   score = 0
 
   nextLevel()

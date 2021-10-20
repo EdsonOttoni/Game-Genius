@@ -11,6 +11,12 @@ body {
   align-items: center;
 }
 
+#main-game .count-down {
+  position: absolute;
+  right: 10vw;
+  top: 20px
+}
+
 #main-game .genius {
   display: grid;
   grid-template-areas:
