@@ -2,14 +2,15 @@ let order = []
 let clickOrder = []
 let score = 0
 let counter = 10
+let time
 
 const blue = document.querySelector('.blue')
 const red = document.querySelector('.red')
 const green = document.querySelector('.green')
 const yellow = document.querySelector('.yellow')
 
-//cria ordem aletoria de cores
-const shuffleOrder = () => {
+//cria ordem aleatória de cores
+function shuffleOrder() {
   let colorOrder = Math.floor(Math.random() * 4)
   order[order.length] = colorOrder
   clickOrder = []
@@ -21,7 +22,7 @@ const shuffleOrder = () => {
 }
 
 //acende a proxima cor
-const lightColor = (element, number) => {
+function lightColor (element, number) {
   number = number * 1000
 
   setTimeout(() => {
@@ -31,12 +32,36 @@ const lightColor = (element, number) => {
   setTimeout(() => {
     element.classList.remove('selected')
   }, number)
-
+  
   return
 }
 
+//funcao que retorna a cor
+function createColorElement(color) {
+  if(color == 0){
+    return green
+  } else if(color == 1){
+    return red
+  }else if(color == 2){
+    return yellow
+  }else {
+    return blue
+  }
+}
+
+//funcao para o clique do usuario
+function click (color) {
+  clickOrder[clickOrder.length] = color
+  createColorElement(color).classList.add('selected')
+
+  setTimeout(() => {
+    createColorElement(color).classList.remove('selected')
+    checkOrder()
+  }, 250)
+}
+
 //checa se os botoes clicados são os mesmos da ordem gerada no jogo
-const checkOrder = () => {
+function checkOrder() {
   for(let i in clickOrder) {
     if(clickOrder[i] != order[i]){
       gameOver()
@@ -50,38 +75,32 @@ const checkOrder = () => {
   }
 }
 
-//funcao para o clique do usuario
-const click = (color) => {
-  clickOrder[clickOrder.length] = color
-  createColorElement(color).classList.add('selected')
-
-  setTimeout(() => {
-    createColorElement(color).classList.remove('selected')
-    checkOrder()
-  }, 250)
-}
-
-//funcao que retorna a cor
-const createColorElement = (color) => {
-  if(color == 0){
-    return green
-  } else if(color == 1){
-    return red
-  }else if(color == 2){
-    return yellow
-  }else {
-    return blue
+// função pra o cronometro
+function countdown() {
+  if ((time - 1) >= -1) {
+    let seg = parseInt(time);
+    if(time <= 9){
+      seg = '0' + seg
+    }
+    printTime = '00:' + seg;
+    document.querySelector(".time").innerHTML = printTime
+    setTimeout('countdown()', 1000)
+    time--
+  }
+  if(time === -1 ){
+    return gameOver()
   }
 }
 
 //funcao para proximo nivel do jogo
-const nextLevel = () => {
+function nextLevel() {
   score++
+  time = 20
   shuffleOrder()
 }
 
 //funcao para game over
-const gameOver = () => {
+function gameOver() {
   alert(`Pontuação: ${score}!\n Você perdeu o jogo`)
   order = []
   clickOrder = []
@@ -90,7 +109,7 @@ const gameOver = () => {
 }
 
 //funcao de inicio do jogo
-const playGame = () => {
+function playGame() {
   alert('Bem vindo ao Genius! iniciando novo jogo')
   score = 0
 
@@ -104,3 +123,4 @@ yellow.onclick = () => click(2)
 blue.onclick = () => click(3)
 
 playGame()
+countdown()

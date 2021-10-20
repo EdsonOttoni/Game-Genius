@@ -10,18 +10,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-#main-game .counter-time{
-  display: flex;
-  position: absolute;
-  top: 10vh;
-  right: 12vw;
-}
-#main-game .counter-time .time{
-  justify-content: center;
-  align-items: center;
-  font-size: 50px;
-  font-weight: bold;
-}
 
 #main-game .genius {
   display: grid;
